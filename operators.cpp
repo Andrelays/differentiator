@@ -121,7 +121,7 @@ tree_node *differentiation_exp(tree_node *left_node, tree_node *right_node, ssiz
 {
     UNUSED(right_node);
 
-    return CREATE_MUL(CREATE_EXP(left_node), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_EXP(copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
 }
 
 tree_node *differentiation_log(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
@@ -129,6 +129,27 @@ tree_node *differentiation_log(tree_node *left_node, tree_node *right_node, ssiz
     UNUSED(right_node);
 
     return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
+}
+
+tree_node *differentiation_sin(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
+{
+    UNUSED(right_node);
+
+    return CREATE_MUL(CREATE_COS(copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
+}
+
+tree_node *differentiation_cos(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
+{
+    UNUSED(right_node);
+
+    return CREATE_MUL(CREATE_MUL(CREATE_NUM(-1), CREATE_SIN(copying_node(left_node))), DIF_BY_CUR_VAR(left_node));
+}
+
+tree_node *differentiation_tan(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
+{
+    UNUSED(right_node);
+
+    return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), CREATE_POW(CREATE_COS(copying_node(left_node)), CREATE_NUM(2))), DIF_BY_CUR_VAR(left_node));
 }
 
 tree_node *differentiation_pow(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
@@ -141,6 +162,11 @@ tree_node *differentiation_pow(tree_node *left_node, tree_node *right_node, ssiz
         return CREATE_MUL(CREATE_MUL(CREATE_LOG(copying_node(left_node)), CREATE_POW(copying_node(left_node), copying_node(right_node))), DIF_BY_CUR_VAR(right_node));
     }
 
-    return DIF_BY_CUR_VAR(CREATE_EXP(CREATE_MUL(copying_node(right_node), CREATE_LOG(copying_node(left_node)))));
+    tree_node *exp_node = CREATE_EXP(CREATE_MUL(copying_node(right_node), CREATE_LOG(copying_node(left_node))));
+    tree_node *dif_node = DIF_BY_CUR_VAR(exp_node);
+
+    delete_node(exp_node);
+
+    return dif_node;
 }
 

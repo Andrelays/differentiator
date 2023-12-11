@@ -7,11 +7,6 @@
 #include "dsl.h"
 #include "operators.h"
 
-// differentiate_node(tree_node *tree_node_pointer, const variable_parametrs *variable_array)
-// {
-//
-// }
-
 tree_node *differentiate_node_by_variable(tree_node *tree_node_pointer, ssize_t variable_index)
 {
     MYASSERT(tree_node_pointer != NULL, NULL_POINTER_PASSED_TO_FUNC, return NULL);
@@ -28,5 +23,5 @@ tree_node *differentiate_node_by_variable(tree_node *tree_node_pointer, ssize_t 
 
     MYASSERT(CURRENT_DIFFERENTIATE_FUNC != NULL, NULL_POINTER_PASSED_TO_FUNC, return NULL);
 
-    return CURRENT_DIFFERENTIATE_FUNC(tree_node_pointer->left, tree_node_pointer->right, variable_index);
+    return optimize_node(CURRENT_DIFFERENTIATE_FUNC(tree_node_pointer->left, tree_node_pointer->right, variable_index));
 }

@@ -32,6 +32,10 @@ tree_node *differentiation_div(tree_node *left_node, tree_node *right_node, ssiz
 tree_node *differentiation_pow(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
 tree_node *differentiation_exp(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
 tree_node *differentiation_log(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
+tree_node *differentiation_tan(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
+tree_node *differentiation_sin(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
+tree_node *differentiation_cos(tree_node *left_node, tree_node *right_node, ssize_t variable_index);
+
 
 
 enum operators_index {
@@ -52,13 +56,11 @@ const operator_parametrs OPERATORS[] = {[MUL] = {"*",   true,  calculation_mul, 
                                         [SUB] = {"-",   true,  calculation_sub, differentiation_sub, 3},
                                         [DIV] = {"/",   true,  calculation_div, differentiation_div, 2},
                                         [POW] = {"^",   true,  calculation_pow, differentiation_pow, 1},
-                                        [SIN] = {"sin", false, calculation_sin, NULL, 1},
-                                        [COS] = {"cos", false, calculation_cos, NULL, 1},
-                                        [TAN] = {"tan", false, calculation_tan, NULL, 1},
+                                        [SIN] = {"sin", false, calculation_sin, differentiation_sin, 1},
+                                        [COS] = {"cos", false, calculation_cos, differentiation_cos, 1},
+                                        [TAN] = {"tan", false, calculation_tan, differentiation_tan, 1},
                                         [LOG] = {"log", false, calculation_log, differentiation_log, 1},
                                         [EXP] = {"exp", false, calculation_exp, differentiation_exp, 1}};
-
-const double NEAR_ZERO = 1e-6;
 
 #endif //OPERATORS_H_INCLUDED
 

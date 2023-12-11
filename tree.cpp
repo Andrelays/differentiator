@@ -82,6 +82,13 @@ void delete_node(tree_node *tree_node_pointer)
     delete_node(tree_node_pointer->left);
     delete_node(tree_node_pointer->right);
 
+    delete_node_without_subtree(tree_node_pointer);
+}
+
+void delete_node_without_subtree(tree_node *tree_node_pointer)
+{
+    MYASSERT(tree_node_pointer != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
+
     tree_node_pointer->value.number = POISON_TREE;
     tree_node_pointer->type         = NO_TYPE;
     tree_node_pointer->left         = NULL;
@@ -133,6 +140,17 @@ tree_node *copying_node(tree_node *src_tree_node)
     des_tree_node->right = copying_node(src_tree_node->right);
 
     return des_tree_node;
+}
+
+bool node_is_equal_number(tree_node *tree_node_pointer, double number)
+{
+    MYASSERT(tree_node_pointer != NULL, NULL_POINTER_PASSED_TO_FUNC, return false);
+
+    if (tree_node_pointer->type == NUMBER && check_equal_with_accuracy(tree_node_pointer->value.number, number, NEAR_ZERO)) {
+        return true;
+    }
+
+    return false;
 }
 
 ssize_t verify_tree(tree *tree_pointer, ssize_t line, const char *file, const char *func)

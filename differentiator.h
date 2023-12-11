@@ -18,6 +18,7 @@ extern bool  Global_color_output_tree;
 
 const size_t MAX_SIZE_NAME_VARIABLE = 50;
 const size_t SIZE_ARRAY_OF_VARIABLE = 100;
+const double NEAR_ZERO              = 1e-6;
 
 #define VERIFY_TREE(tree_pointer) verify_tree(tree_pointer, __LINE__, __FILE__, __PRETTY_FUNCTION__)
 
@@ -95,9 +96,12 @@ ssize_t    tree_destructor     (tree *tree_pointer);
 ssize_t    verify_tree         (tree *tree_pointer, ssize_t line, const char *file, const char *func);
 tree_node *new_tree_node       ();
 void       delete_node         (tree_node *tree_node_pointer);
+void       delete_node_without_subtree(tree_node *tree_node_pointer);
 tree_node *create_node         (type_node type, value_node value, tree_node *tree_node_left, tree_node *tree_node_right);
 tree_node *copying_node        (tree_node *src_tree_node);
 bool       check_node_is_number(tree_node *tree_node_pointer);
+bool       node_is_equal_number       (tree_node *tree_node_pointer, double number);
+
 
 ssize_t input_tree_from_database(FILE *database_file, tree *tree_pointer);
 
@@ -106,5 +110,7 @@ void print_node(FILE *file_output, const tree_node *tree_node_pointer, const var
 double calcucalate_node(tree_node *tree_node_pointer, const variable_parametrs *variable_array);
 
 tree_node *differentiate_node_by_variable(tree_node *tree_node_pointer, ssize_t variable_index);
+
+tree_node *optimize_node(tree_node *tree_node_pointer);
 
 #endif //DIFFERENTIATOR_H_INCLUDED

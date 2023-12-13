@@ -35,12 +35,12 @@ int main(int argc, const char *argv[])
     printf("%g\n", calcucalate_node(tree_pointer->root, tree_pointer->variable_array));
 
     tree_node *node_pointer = differentiate_node_by_variable(tree_pointer->root, 0);
-
     delete_node(tree_pointer->root);
-
     tree_pointer->root = node_pointer;
 
     print_node(file_output, tree_pointer->root, tree_pointer->variable_array, tree_pointer->root);
+
+    // print_node(file_output, tree_pointer->root, tree_pointer->variable_array, tree_pointer->root);
 
     tree_destructor(tree_pointer);
 

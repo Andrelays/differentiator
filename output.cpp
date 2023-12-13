@@ -9,6 +9,7 @@
 #include "libraries/utilities/utilities.h"
 #include "differentiator.h"
 #include "operators.h"
+#include "dsl.h"
 
 
 void print_node(FILE *file_output, const tree_node *tree_node_pointer, const variable_parametrs *variable_array, const tree_node *parent_tree_node_pointer)
@@ -17,14 +18,13 @@ void print_node(FILE *file_output, const tree_node *tree_node_pointer, const var
     MYASSERT(parent_tree_node_pointer   != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
     MYASSERT(variable_array             != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
 
-
-    if (!tree_node_pointer)
-    {
-        fprintf(file_output, "_ ");
+    if (!tree_node_pointer) {
         return;
     }
 
-    fprintf(file_output,  "( ");
+    if (tree_node_pointer->type == OPERATOR && (OPERATOR_PRIORITY(tree_node_pointer) > OPERATOR_PRIORITY(parent_tree_node_pointer))) {
+        fprintf(file_output,  "( ");
+    }
 
     print_node(file_output, tree_node_pointer->left, variable_array, tree_node_pointer);
 
@@ -48,6 +48,7 @@ void print_node(FILE *file_output, const tree_node *tree_node_pointer, const var
             break;
         }
 
+        case PARENTHESIS:
         case NO_TYPE:
         default:
         {
@@ -58,5 +59,7 @@ void print_node(FILE *file_output, const tree_node *tree_node_pointer, const var
 
     print_node(file_output, tree_node_pointer->right, variable_array, tree_node_pointer);
 
-    fprintf(file_output, ") ");
+    if (tree_node_pointer->type == OPERATOR && (OPERATOR_PRIORITY(tree_node_pointer) > OPERATOR_PRIORITY(parent_tree_node_pointer))) {
+        fprintf(file_output, ") ");
+    }
 }

@@ -47,23 +47,23 @@ static tree_node *optimize_constants(tree_node *tree_node_pointer)
     tree_node_pointer->left  = optimize_constants(tree_node_pointer->left);
     tree_node_pointer->right = optimize_constants(tree_node_pointer->right);
 
-    if (tree_node_pointer->left->type == NUMBER)
+    if (tree_node_pointer->right->type == NUMBER)
     {
-        double left_node_number  = tree_node_pointer->left->value.number;
-        double right_node_number = 0;
+        double right_node_number = tree_node_pointer->right->value.number;
+        double left_node_number  = 0;
 
         calculation_function calculate_func = CURRENT_CALCULATE_FUNC;
 
         if (!CURRENT_OPERATOR.is_binary)
         {
-            delete_node(tree_node_pointer->left);
+            delete_node(tree_node_pointer->right);
 
-            RETURN_AND_DELETE_OPERATOR_(CREATE_NUM(calculate_func(left_node_number, 0)));
+            RETURN_AND_DELETE_OPERATOR_(CREATE_NUM(calculate_func(0, right_node_number)));
         }
 
-        if (tree_node_pointer->right->type == NUMBER)
+        if (tree_node_pointer->left->type == NUMBER)
         {
-            right_node_number = tree_node_pointer->right->value.number;
+            left_node_number = tree_node_pointer->left->value.number;
 
             delete_node(tree_node_pointer->left);
             delete_node(tree_node_pointer->right);
@@ -183,7 +183,7 @@ static tree_node *remove_neutral_elements(tree_node *tree_node_pointer, bool *no
             {
                 delete_node(left_node);
                 delete_node(right_node);
-                
+
                 RETURN_AND_DELETE_OPERATOR_WITH_CHANGES_(CREATE_NUM(1));
             }
 

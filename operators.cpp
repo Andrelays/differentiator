@@ -52,49 +52,49 @@ double calculation_pow(double left_value, double right_value)
 
 double calculation_sin(double left_value, double right_value)
 {
-    UNUSED(right_value);
+    UNUSED(left_value);
 
-    return sin(left_value);
+    return sin(right_value);
 }
 
 double calculation_cos(double left_value, double right_value)
 {
-    UNUSED(right_value);
+    UNUSED(left_value);
 
-    return cos(left_value);
+    return cos(right_value);
 }
 
 double calculation_tan(double left_value, double right_value)
 {
-    UNUSED(right_value);
+    UNUSED(left_value);
 
-    if (check_equal_with_accuracy(left_value, PI / 2, NEAR_ZERO))
+    if (check_equal_with_accuracy(right_value, PI / 2, NEAR_ZERO))
     {
         printf(RED "ERROR! Tangent of pi/2.\n" RESET_COLOR);
         return 0;
     }
 
-    return tan(left_value);
+    return tan(right_value);
 }
 
 double calculation_log(double left_value, double right_value)
 {
-    UNUSED(right_value);
+    UNUSED(left_value);
 
-    if (left_value <= 0)
+    if (right_value <= 0)
     {
         printf(RED "ERROR! Logarithm of a number less than 0.\n" RESET_COLOR);
         return 0;
     }
 
-    return log(left_value);
+    return log(right_value);
 }
 
 double calculation_exp(double left_value, double right_value)
 {
-    UNUSED(right_value);
+    UNUSED(left_value);
 
-    return exp(left_value);
+    return exp(right_value);
 }
 
 tree_node *differentiation_add(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
@@ -119,37 +119,37 @@ tree_node *differentiation_div(tree_node *left_node, tree_node *right_node, ssiz
 
 tree_node *differentiation_exp(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
 {
-    UNUSED(right_node);
+    UNUSED(left_node);
 
-    return CREATE_MUL(CREATE_EXP(copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_EXP(copying_node(right_node)), DIF_BY_CUR_VAR(right_node));
 }
 
 tree_node *differentiation_log(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
 {
-    UNUSED(right_node);
+    UNUSED(left_node);
 
-    return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), copying_node(right_node)), DIF_BY_CUR_VAR(right_node));
 }
 
 tree_node *differentiation_sin(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
 {
-    UNUSED(right_node);
+    UNUSED(left_node);
 
-    return CREATE_MUL(CREATE_COS(copying_node(left_node)), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_COS(copying_node(right_node)), DIF_BY_CUR_VAR(right_node));
 }
 
 tree_node *differentiation_cos(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
 {
-    UNUSED(right_node);
+    UNUSED(left_node);
 
-    return CREATE_MUL(CREATE_MUL(CREATE_NUM(-1), CREATE_SIN(copying_node(left_node))), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_MUL(CREATE_NUM(-1), CREATE_SIN(copying_node(right_node))), DIF_BY_CUR_VAR(right_node));
 }
 
 tree_node *differentiation_tan(tree_node *left_node, tree_node *right_node, ssize_t variable_index)
 {
-    UNUSED(right_node);
+    UNUSED(left_node);
 
-    return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), CREATE_POW(CREATE_COS(copying_node(left_node)), CREATE_NUM(2))), DIF_BY_CUR_VAR(left_node));
+    return CREATE_MUL(CREATE_DIV(CREATE_NUM(1), CREATE_POW(CREATE_COS(copying_node(right_node)), CREATE_NUM(2))), DIF_BY_CUR_VAR(right_node));
 }
 
 tree_node *differentiation_pow(tree_node *left_node, tree_node *right_node, ssize_t variable_index)

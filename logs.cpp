@@ -165,6 +165,7 @@ IF_ON_TREE_DUMP
                 break;
             }
 
+            case PARENTHESIS:
             case NO_TYPE:
             default:
                 fprintf(dot_file,  "\t\tnode_%p  [shape = Mrecord, style = filled, fillcolor = \"#ff4c5b\", label = \"{TYPE\\n ERROR! | <left> L } | {VALUE\\n [" FORMAT_SPECIFIERS_TREE "] | <right> R} \"];\n", tree_node_pointer, tree_node_pointer->value.number);

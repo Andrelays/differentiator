@@ -51,7 +51,8 @@ enum type_node {
     NO_TYPE                = 0,
     NUMBER                 = 1,
     OPERATOR               = 2,
-    VARIABLE               = 3
+    VARIABLE               = 3,
+    PARENTHESIS            = 4
 };
 
 struct debug_info_tree {
@@ -65,6 +66,7 @@ union value_node {                                      //TODO auto-check of typ
     double                  number;
     ssize_t                 operator_index;
     ssize_t                 variable_index;
+    bool                    is_closing_parenthesis;
 };
 
 struct tree_node {
@@ -87,6 +89,13 @@ struct tree {
     ssize_t                  variable_array_position;
     struct debug_info_tree  *info;
 };
+
+struct parsing_info {
+    tree_node               *token_array;
+    ssize_t                  size_token_array;
+    ssize_t                  token_array_position;
+};
+
 
 IF_ON_TREE_DUMP(void       tree_dump           (tree *tree_pointer, ssize_t line, const char *file, const char *func));
 

@@ -1,8 +1,8 @@
-#include "libraries/utilities/myassert.h"
-#include "libraries/utilities/colors.h"
-#include "libraries/stack/stack.h"
-#include "libraries/onegin/onegin.h"
-#include "libraries/utilities/utilities.h"
+#include "myassert.h"
+#include "colors.h"
+#include "stack.h"
+#include "onegin.h"
+#include "utilities.h"
 #include "differentiator.h"
 #include "operators.h"
 #include "dsl.h"
@@ -73,7 +73,6 @@ IF_ON_TREE_DUMP
         MYASSERT(tree_pointer->info         != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
         MYASSERT(Global_logs_pointer_tree   != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
 
-
     }
 )
 
@@ -89,7 +88,14 @@ IF_ON_TREE_DUMP
         MYASSERT(file                       != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
         MYASSERT(func                       != NULL, NULL_POINTER_PASSED_TO_FUNC, return);
 
-        const char  *NAME_DOT_FILE   = "tree.dot";
+        static bool is_first_launch_func = true;
+
+        if(is_first_launch_func) {
+            system("mkdir -p graph");
+            is_first_launch_func = false;
+        }
+
+        const char  *NAME_DOT_FILE  = "tree.dot";
         static ssize_t number_graph = 0;
 
         ++number_graph;
@@ -119,11 +125,9 @@ IF_ON_TREE_DUMP
         fprintf(dot_file,   "digraph Tree {\n"
                             "\trankdir = TB;\n"
 	                        "\tnode [shape = record];\n"
-                            "\tsplines=ortho;\n");
-
-
-        fprintf(dot_file,  "\tsubgraph cluster0 {\n"
-                           "\t\tlabel = \"called  from:    %s(%ld)  %s\";\n", file, line, func);
+                            "\tsplines=ortho;\n"
+                            "\tsubgraph cluster0 {\n"
+                            "\t\tlabel = \"called  from:    %s(%ld)  %s\";\n", file, line, func);
 
         write_subtree_to_dot(tree_pointer->variable_array, tree_pointer->root, dot_file);
 

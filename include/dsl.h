@@ -5,7 +5,7 @@
 #define  CURRENT_CALCULATE_FUNC      OPERATORS[tree_node_pointer->value.operator_index].calculate_func
 #define  CURRENT_OPERATOR            OPERATORS[tree_node_pointer->value.operator_index]
 #define  CURRENT_DIFFERENTIATE_FUNC  OPERATORS[tree_node_pointer->value.operator_index].differentiate_func
-#define  CURRENT_TOKEN               parsing->token_array[parsing->token_array_position]
+#define  CURRENT_TOKEN               parsing_info->token_array[parsing_info->token_array_position]
 #define  VALUE_OF_NODE               tree_node_pointer->value
 #define  OPERATOR_PRIORITY(node)     OPERATORS[(node)->value.operator_index].priority
 #define  DIF_BY_CUR_VAR(node)        differentiate_node_by_variable(node, variable_index)

@@ -2,8 +2,8 @@
 #include <math.h>
 #include "operators.h"
 #include "differentiator.h"
-#include "libraries/utilities/colors.h"
-#include "libraries/utilities/utilities.h"
+#include "colors.h"
+#include "utilities.h"
 #include "dsl.h"
 
 #define UNUSED(x)   \

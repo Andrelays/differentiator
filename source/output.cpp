@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
-#include "libraries/utilities/myassert.h"
-#include "libraries/utilities/colors.h"
-#include "libraries/stack/stack.h"
-#include "libraries/onegin/onegin.h"
-#include "libraries/utilities/utilities.h"
+#include "myassert.h"
+#include "colors.h"
+#include "stack.h"
+#include "onegin.h"
+#include "utilities.h"
 #include "differentiator.h"
 #include "operators.h"
 #include "dsl.h"

@@ -90,9 +90,9 @@ struct tree {
     struct debug_info_tree  *info;
 };
 
-struct parsing_info {
+struct parsing_info_t {
     tree_node               *token_array;
-    ssize_t                  size_token_array;
+    ssize_t                  capacity_token_array;
     ssize_t                  token_array_position;
 };
 
